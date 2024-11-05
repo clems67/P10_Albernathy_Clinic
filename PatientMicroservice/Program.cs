@@ -1,5 +1,8 @@
 
-namespace P10_Abernathy_Clinic
+using Microsoft.EntityFrameworkCore;
+using System;
+
+namespace PatientMicroservice
 {
     public class Program
     {
@@ -14,7 +17,21 @@ namespace P10_Abernathy_Clinic
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddDbContext<PatientDbContext>(options =>
+                options.UseNpgsql(builder.Configuration.GetConnectionString("PostgresConnection")));
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll",
+                    builder => builder.AllowAnyOrigin()
+                                      .AllowAnyMethod()
+                                      .AllowAnyHeader());
+            });
+
+
             var app = builder.Build();
+
+            app.UseCors("AllowAll");
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

@@ -4,27 +4,28 @@
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER app
 WORKDIR /app
-EXPOSE 8080
-EXPOSE 8081
+#EXPOSE 8080
+#EXPOSE 8081
+EXPOSE 80
 
 
 # This stage is used to build the service project
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["P10_Abernathy_Clinic/P10_Abernathy_Clinic.csproj", "P10_Abernathy_Clinic/"]
-RUN dotnet restore "./P10_Abernathy_Clinic/P10_Abernathy_Clinic.csproj"
+COPY ["PatientMicroservice/PatientMicroservice.csproj", "PatientMicroservice/"]
+RUN dotnet restore "./PatientMicroservice/PatientMicroservice.csproj"
 COPY . .
-WORKDIR "/src/P10_Abernathy_Clinic"
-RUN dotnet build "./P10_Abernathy_Clinic.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/PatientMicroservice"
+RUN dotnet build "./PatientMicroservice.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./P10_Abernathy_Clinic.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./PatientMicroservice.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "P10_Abernathy_Clinic.dll"]
+ENTRYPOINT ["dotnet", "PatientMicroservice.dll"]

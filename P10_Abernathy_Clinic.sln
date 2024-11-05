@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35222.181
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P10_Abernathy_Clinic", "P10_Abernathy_Clinic\P10_Abernathy_Clinic.csproj", "{3C2325F8-0E25-4043-B7FE-238BAB034F1D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PatientMicroservice", "PatientMicroservice\PatientMicroservice.csproj", "{C8DEE1F3-9C00-4934-96D5-CF78452CCA95}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{968B9587-5853-4E21-9521-FEA84EC29443}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3C2325F8-0E25-4043-B7FE-238BAB034F1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3C2325F8-0E25-4043-B7FE-238BAB034F1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3C2325F8-0E25-4043-B7FE-238BAB034F1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3C2325F8-0E25-4043-B7FE-238BAB034F1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8DEE1F3-9C00-4934-96D5-CF78452CCA95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8DEE1F3-9C00-4934-96D5-CF78452CCA95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8DEE1F3-9C00-4934-96D5-CF78452CCA95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8DEE1F3-9C00-4934-96D5-CF78452CCA95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{968B9587-5853-4E21-9521-FEA84EC29443}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{968B9587-5853-4E21-9521-FEA84EC29443}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{968B9587-5853-4E21-9521-FEA84EC29443}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{968B9587-5853-4E21-9521-FEA84EC29443}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
