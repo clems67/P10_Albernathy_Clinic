@@ -6,15 +6,7 @@ namespace NotesMicroservice.Models
     {
         public ObjectId _id { get; set; }
         public int PatientId { get; set; }
+        public DateTime DateTime { get; set; }
         public string Notes { get; set; }
-
-        public NoteModel toNoteModel()
-        {
-            return new NoteModel
-            {
-                PatientId = this.PatientId,
-                Notes = this.Notes,
-            };
-        }
     }
 }

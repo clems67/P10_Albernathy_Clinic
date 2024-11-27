@@ -1,11 +1,14 @@
 
+using Microsoft.Extensions.DependencyInjection;
+using MongoDB.Bson;
 using MongoDB.Driver;
+using NotesMicroservice.Models;
 
 namespace NotesMicroservice
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -16,9 +19,40 @@ namespace NotesMicroservice
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            var mongoClient = new MongoClient(builder.Configuration.GetConnectionString("MongoDB"));
-            var database = mongoClient.GetDatabase("Notes");
-            builder.Services.AddSingleton<IMongoDatabase>(database);
+            var mongoConnectionString = builder.Configuration.GetConnectionString("MongoDB");
+
+            //IMongoClient mongoClient = null;
+            //IMongoDatabase database = null;
+            //const int maxRetryCount = 5;
+            //int currentRetry = 0;
+            //IAsyncCursor<string> collections = null;
+
+            //while (collections == null && currentRetry < maxRetryCount)
+            //{
+            //    try
+            //    {
+            //        mongoClient = new MongoClient(mongoConnectionString);
+            //        // Attempt to connect to the database
+            //        database = mongoClient.GetDatabase("Notes");
+            //        collections = database.ListCollectionNames(); // A quick call to verify the connection
+            //        Console.WriteLine("Connected to MongoDB.");
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        currentRetry++;
+            //        Console.WriteLine($"MongoDB not ready, retrying ({currentRetry}/{maxRetryCount})...");
+            //    }
+            //}
+
+            //if (mongoClient == null)
+            //{
+            //    throw new Exception("Failed to connect to MongoDB after retries.");
+            //}
+
+            var mongoClient = new MongoClient(mongoConnectionString);
+            //var notesCollection = database.GetCollection<NoteDBModel>("notes");
+            //Console.WriteLine(database.ListCollectionNames().ToString());
+            builder.Services.AddSingleton<IMongoClient>(mongoClient);
 
             var app = builder.Build();
 
