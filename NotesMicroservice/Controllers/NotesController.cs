@@ -15,13 +15,13 @@ namespace NotesMicroservice.Controllers
             _notes = database.GetCollection<NoteDBModel>("notesTable");
         }
 
-        public class NotesCreateModel{
+        public class BasicNoteModel{
             public int patientId { get; set; }
             public string notes { get; set; }
         }
 
         [HttpPost]
-        public ActionResult<NotesCreateModel> CreateNote(NotesCreateModel note)
+        public ActionResult<BasicNoteModel> CreateNote(BasicNoteModel note)
         {
             if (!ModelState.IsValid)
             {
@@ -55,11 +55,13 @@ namespace NotesMicroservice.Controllers
         }
 
         [HttpPut]
-        public async Task UpdatePatientNotes(NoteDBModel notes)
+        public async Task<ActionResult> UpdatePatientNotes(BasicNoteModel notes)
         {
-            var filter = Builders<NoteDBModel>.Filter.Eq(n => n.PatientId, notes.PatientId);
-            var update = Builders<NoteDBModel>.Update.Set(n => n.Notes, notes.Notes);
-            _notes.UpdateOne(filter, update);
+            var filter = Builders<NoteDBModel>.Filter.Eq(n => n.PatientId, notes.patientId);
+            var update = Builders<NoteDBModel>.Update.Set(n => n.Notes, notes.notes);
+            var result = _notes.UpdateOne(filter, update);
+            if(result.ModifiedCount == 1) { return Ok(result); }
+            else { return Problem("unexpected error, ressource not updated"); }
         }
             
         [HttpDelete]
